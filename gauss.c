@@ -1,4 +1,4 @@
-#include "gauss.h"
+#include "lib_quadrature.h"
 #include "gauss_internal.h"
 
 /*
