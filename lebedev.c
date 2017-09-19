@@ -10,7 +10,7 @@
 
 int get_lebedev_grid(double **theta, double **phi, double **wleb, int nleb, unsigned long *ngrid, char *path)
 {
-	char fname[50];
+	char fname[100];
 	unsigned long nr, ncol, i;
 	double *mesh;
 
