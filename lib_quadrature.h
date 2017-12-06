@@ -1,5 +1,5 @@
 #include <stddef.h>
 int gauss_grid_create(size_t size, double* x, double* w, double xmin, double xmax);
-int test_gauss_grid_create(void);
+double test_gauss_grid_create(unsigned long n, int tfun);
 int get_lebedev_grid(double **theta, double **phi, double **wleb, int nleb, unsigned long *ngrid, char* path);	
-int test_get_lebedev_grid(void);
+double test_get_lebedev_grid(int leb, int tfun);
