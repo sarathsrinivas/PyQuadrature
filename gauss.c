@@ -459,6 +459,17 @@ int gauss_grid_create(unsigned long size, double *x, double *w, double xmin, dou
 	return (0);
 }
 
+int gauss_grid_rescale(unsigned long size, double *x, double xmin, double xmax)
+{
+	unsigned long i;
+
+	for (i = 0; i < size; i++) {
+		x[i] = 0.5 * (xmax + xmin) + 0.5 * (xmax - xmin) * x[i];
+	}
+
+	return 0;
+}
+
 double test_gauss_grid_create(unsigned long n, int tfun)
 {
 	unsigned long i;
