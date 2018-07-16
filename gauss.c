@@ -459,12 +459,14 @@ int gauss_grid_create(unsigned long size, double *x, double *w, double xmin, dou
 	return (0);
 }
 
-int gauss_grid_rescale(const double *x1, unsigned long size, double *x, double xmin, double xmax)
+int gauss_grid_rescale(const double *x1, const double *w1, unsigned long size, double *x, double *w,
+		       double xmin, double xmax)
 {
 	unsigned long i;
 
 	for (i = 0; i < size; i++) {
 		x[i] = 0.5 * (xmax + xmin) + 0.5 * (xmax - xmin) * x1[i];
+		w[i] = 0.5 * (xmax - xmin) * w1[i];
 	}
 
 	return 0;
