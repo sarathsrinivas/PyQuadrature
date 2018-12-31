@@ -423,7 +423,7 @@ void gauss_legendre_tbl(unsigned long n, double *x, double *w, double eps)
 	return;
 }
 
-int gauss_grid_create(unsigned long size, double *x, double *w, double xmin, double xmax)
+void gauss_grid_create(unsigned long size, double *x, double *w, double xmin, double xmax)
 {
 	double *xi, *wi;
 	unsigned long j = 0, k = 0, i, sn;
@@ -455,12 +455,10 @@ int gauss_grid_create(unsigned long size, double *x, double *w, double xmin, dou
 
 	free(xi);
 	free(wi);
-
-	return (0);
 }
 
-int gauss_grid_rescale(const double *x1, const double *w1, unsigned long size, double *x, double *w,
-		       double xmin, double xmax)
+void gauss_grid_rescale(const double *x1, const double *w1, unsigned long size, double *x, double *w,
+			double xmin, double xmax)
 {
 	unsigned long i;
 
@@ -468,8 +466,6 @@ int gauss_grid_rescale(const double *x1, const double *w1, unsigned long size, d
 		x[i] = 0.5 * (xmax + xmin) + 0.5 * (xmax - xmin) * x1[i];
 		w[i] = 0.5 * (xmax - xmin) * w1[i];
 	}
-
-	return 0;
 }
 
 double test_gauss_grid_create(unsigned long n, int tfun)
