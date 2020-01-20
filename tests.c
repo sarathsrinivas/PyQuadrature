@@ -12,7 +12,7 @@ double test_gauss_grid_create(unsigned long n, int tfun)
 	double *x, *w;
 	double a = 0, b = 2, In[3], Incomp[3], Indiff[3];
 
-	fprintf(stderr, "test_gauss_grid_create() test #%d %s:%d\n", tfun, __FILE__, __LINE__);
+	fprintf(stderr, "test_gauss_grid_create(n = %lu) tfun = %d):\n", n, tfun);
 
 	x = malloc(n * sizeof(double));
 	assert(x);
@@ -50,7 +50,7 @@ double test_lebedev_grid(int leb, int tfun, char *leb_path)
 	double *th, *phi, *wleb, x, y, z, x2, y2, z2, II[4], Icomp[4], Idiff[4];
 	unsigned long ngrid, l;
 
-	fprintf(stderr, "test_get_lebedev_grid() test #%d %s:%d\n", tfun, __FILE__, __LINE__);
+	fprintf(stderr, "test_get_lebedev_grid(leb = %d, tfun = %d):\n", leb, tfun);
 
 	Icomp[0] = 19.388114662154152;
 	Icomp[1] = 0;
@@ -99,7 +99,7 @@ double test_ball_quadrature(unsigned long nr, double rmax, int nleb, char *path)
 	double vol, vol_num, *q, *wq, r;
 	unsigned long i, nq;
 
-	fprintf(stderr, "test_ball_quadrature test %s:%d\n", __FILE__, __LINE__);
+	fprintf(stderr, "test_ball_quadrature(nr = %lu, rmax = %f, nleb = %d):\n", nr, rmax, nleb);
 
 	get_ball_quadrature(&q, &wq, &nq, nleb, nr, rmax, path);
 	assert(q);
@@ -124,10 +124,10 @@ int verify(double terr, double tol)
 	int ret;
 	if (terr > tol) {
 		ret = 1;
-		fprintf(stderr, "T-ERROR: %+.15E TOL: %+.15E TEST FAILED  ***\n\n", terr, tol);
+		fprintf(stderr, "T-ERROR: %+.15E TOL: %+.0E TEST FAILED  ***\n\n", terr, tol);
 	} else {
 		ret = 0;
-		fprintf(stderr, "T-ERROR: %+.15E TOL: %+.15E TEST PASSED\n\n", terr, tol);
+		fprintf(stderr, "T-ERROR: %+.15E TOL: %+.0E TEST PASSED\n\n", terr, tol);
 	}
 
 	return ret;
