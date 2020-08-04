@@ -1,8 +1,11 @@
 *
 !.gitignore
+!makefile
 !*.c
+!*.py
+!*.a
+!*.txt
 !*.h
 !*.f
 !*.f90
-!*.txt
 !*/
