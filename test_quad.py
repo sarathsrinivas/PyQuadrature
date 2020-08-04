@@ -15,17 +15,19 @@ def test_gauss_legendre(n, a, b, tol=1e-7):
 
     x, w = gauss_legendre(n, a=a, b=b)
 
-    I1 = x.mul(x).mul_(w).sum(-1).numpy()
-    I2 = x.sin().mul_(w).sum(-1).numpy()
-    I3 = x.mul(-1.0).exp_().mul_(w).sum(-1).numpy()
+    I = np.empty(3)
+    I_exct = np.empty_like(I)
 
-    I1_exact = (1 / 3.0) * (b**3 - a**3)
-    I2_exact = np.cos(a) - np.cos(b)
-    I3_exact = np.exp(-a) - np.exp(-b)
+    I[0] = x.mul(x).mul_(w).sum(-1).numpy()
+    I_exct[0] = (1 / 3.0) * (b**3 - a**3)
 
-    assert np.allclose(I1, I1_exact, atol=tol)
-    assert np.allclose(I2, I2_exact, atol=tol)
-    assert np.allclose(I3, I3_exact, atol=tol)
+    I[1] = x.sin().mul_(w).sum(-1).numpy()
+    I_exct[1] = np.cos(a) - np.cos(b)
+
+    I[2] = x.mul(-1.0).exp_().mul_(w).sum(-1).numpy()
+    I_exct[2] = np.exp(-a) - np.exp(-b)
+
+    assert np.allclose(I, I_exct, atol=tol)
 
 
 @pyt.mark.parametrize("nleb", (9, 11, 13, 15, 17))
@@ -41,21 +43,21 @@ def test_lebedev_quad(nleb, tol=1e-6):
     y2 = y.square()
     z2 = z.square()
 
-    I1 = (1 + x + y2 + x2 * y + x2 * x2 + y2 * y2 * y +
-          x2 * y2 * z2).mul_(w).sum(-1).numpy()
-    I2 = x.mul(y).mul(z).mul_(w).sum(-1).numpy()
-    I3 = tc.tanh(z - x - y).add_(1.0).mul_(w).sum(-1).numpy()
-    I4 = w.sum(-1).numpy()
+    I = np.empty(4)
+    I_exct = np.empty_like(I)
 
-    I1_exct = 19.388114662154152
-    I2_exct = 0
-    I3_exct = 12.566370614359172
-    I4_exct = 12.566370614359172
+    I[0] = (1 + x + y2 + x2 * y + x2 * x2 + y2 * y2 * y +
+            x2 * y2 * z2).mul_(w).sum(-1).numpy()
+    I[1] = x.mul(y).mul(z).mul_(w).sum(-1).numpy()
+    I[2] = tc.tanh(z - x - y).add_(1.0).mul_(w).sum(-1).numpy()
+    I[3] = w.sum(-1).numpy()
 
-    assert np.allclose(I1, I1_exct, atol=tol)
-    assert np.allclose(I2, I2_exct, atol=tol)
-    assert np.allclose(I3, I3_exct, atol=tol)
-    assert np.allclose(I4, I4_exct, atol=tol)
+    I_exct[0] = 19.388114662154152
+    I_exct[1] = 0
+    I_exct[2] = 12.566370614359172
+    I_exct[3] = 12.566370614359172
+
+    assert np.allclose(I, I_exct, atol=tol)
 
 
 nr = (10, 20, 50)
@@ -72,11 +74,22 @@ def test_ball_quad(nr, nleb, rmax, tol=1e-6):
 
     x, y, z = sph_to_cart(r, th, phi)
 
-    I1 = w.sum(-1).numpy()
-    I1_exct = (4 * np.pi / 3.0) * rmax**3
+    I = np.empty(5)
+    I_exct = np.empty_like(I)
 
-    I2 = x.square().mul(y.square()).mul(z.square()).mul_(w).sum(-1).numpy()
-    I2_exct = 4 * np.pi * rmax**9 / 945
+    I[0] = w.sum(-1).numpy()
+    I_exct[0] = (4 * np.pi / 3.0) * rmax**3
 
-    assert np.allclose(I1, I1_exct, atol=tol)
-    assert np.allclose(I2, I2_exct, atol=tol)
+    I[1] = x.square().mul(y.square()).mul(z.square()).mul_(w).sum(-1).numpy()
+    I_exct[1] = 4 * np.pi * rmax**9 / 945
+
+    I[2] = x.mul(y).mul(z).mul_(w).sum(-1).numpy()
+    I_exct[2] = 0
+
+    I[3] = x.mul(z).mul_(w).sum(-1).numpy()
+    I_exct[3] = 0
+
+    I[4] = y.mul(z).mul_(w).sum(-1).numpy()
+    I_exct[4] = 0
+
+    assert np.allclose(I, I_exct, atol=tol)
