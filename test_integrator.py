@@ -36,9 +36,9 @@ def test_gauss_legendre(n: int, na: int, xmin: float, xmax: float) -> None:
 
     gleg = Gauss_Legendre_quad(n)
     limits = {"x": (xmin, xmax)}
-    gleg.get_quadrature(limits)
-    f_ax = fun_1d(a, gleg.x)
-    integ_a = gleg.integrate(f_ax)
+    x, wt = gleg.get_quadrature(limits)
+    f_ax = fun_1d(a, x)
+    integ_a = gleg.integrate(f_ax, wt)
 
     assert tc.allclose(integ_a, integ_a_comp)
 
@@ -84,11 +84,12 @@ def test_tensor_prod_quadrature(
 
     quad3d = Tensor_prod_quadrature([quadx, quady, quadz])
     limits = {"x": {"x": xlim}, "y": {"x": ylim}, "z": {"x": zlim}}
-    quad3d.get_quadrature(limits)
 
-    f_axyz = fun_3d(a, quad3d.x[:, 0], quad3d.x[:, 1], quad3d.x[:, 2])
+    x, wt = quad3d.get_quadrature(limits)
 
-    integ_a = quad3d.integrate(f_axyz)
+    f_axyz = fun_3d(a, x[:, 0], x[:, 1], x[:, 2])
+
+    integ_a = quad3d.integrate(f_axyz, wt)
 
     assert tc.allclose(integ_a, integ_a_comp)
 
