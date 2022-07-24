@@ -2,7 +2,7 @@ import torch as tc
 from torch import Tensor
 from itertools import product
 import pytest as pyt
-from .integrator import (
+from PyQuadrature import (
     Integrator,
     Gauss_Legendre_quad,
     Ball_lebedev_gauss,

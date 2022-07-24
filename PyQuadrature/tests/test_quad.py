@@ -1,5 +1,6 @@
 import torch as tc
-from .ball import *
+import numpy as np
+from PyQuadrature import *
 from itertools import product
 import pytest as pyt
 

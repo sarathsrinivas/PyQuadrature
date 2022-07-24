@@ -1,7 +1,7 @@
 import torch as tc
 from torch import Tensor
 from typing import Sequence
-from lib_quadrature.ball import ball_quad, sph_to_cart, gauss_legendre
+from .ball import ball_quad, sph_to_cart, gauss_legendre
 
 
 class Integrator:
