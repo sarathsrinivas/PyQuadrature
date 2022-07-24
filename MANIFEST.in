@@ -1,1 +1,1 @@
-include PyQuadrature/leb_data/
+include PyQuadrature/leb_data/*.txt
