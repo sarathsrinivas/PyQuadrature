@@ -9,4 +9,5 @@ setup(name='PyQuadrature',
       license='MIT',
       packages=['PyQuadrature'],
       install_requires=['torch', 'numpy', 'scipy'],
-      zip_safe=False)
+      zip_safe=False,
+      include_package_data=True)
